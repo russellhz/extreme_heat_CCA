@@ -17,7 +17,7 @@ import argparse
 
 # Directories
 os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/py/L0")
-DIR = "/glade/work/horowitz/scratch/extreme_heat_CCA/"
+DIR = "/glade/work/horowitz/scratch/extreme_heat_CCA/MJJAS_anom"
 
 import L0_functions as L0
 
