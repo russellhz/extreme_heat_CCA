@@ -74,7 +74,7 @@ print("MJJAS reshaped")
 
 for i in range(92):
     # Find scores between JJA day and relevant MJJAS days
-    scores = euclidean_distances(var[range(i, 1799*92, 92)], var[summer_dict[i]])
+    scores = euclidean_distances(slp_JJA[range(i, 1799*92, 92)], slp_MJJAS[summer_dict[i]])
     comp_length = int(scores.shape[1]/1799)
     scores_fixed = np.empty((scores.shape[0],scores.shape[1]-comp_length))
     # Remove distances between same year

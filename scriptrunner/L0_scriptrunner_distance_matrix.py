@@ -17,12 +17,12 @@ for LOC in LOCS:
 
         with open(job_file, "w") as fh:
             fh.writelines("#!/bin/bash -l\n")
-            fh.writelines("#SBATCH --job-name=dyn_adj_xperiment\n")
+            fh.writelines("#SBATCH --job-name=distance_matrix\n")
             fh.writelines("#SBATCH --account=P04010022\n")
             fh.writelines("#SBATCH --ntasks=1\n")
             fh.writelines("#SBATCH --time=03:00:00\n")
             fh.writelines("#SBATCH --partition=dav\n")
-            fh.writelines("#SBATCH --output=out/dyn_adj_xperiment.out.%j\n")
+            fh.writelines("#SBATCH --output=out/distance_matrix.out.%j\n")
             fh.writelines("module load ncarenv\n")
             fh.writelines("module load python\n")
             fh.writelines("ncar_pylib my_npl_clone_casper\n")
