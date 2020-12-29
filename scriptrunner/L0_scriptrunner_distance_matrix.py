@@ -5,7 +5,7 @@ import os
 LOCS = ["Northeast", "NorthernRockiesandPlains", "Northwest", "OhioValley", "South", "Southeast", "Southwest", "UpperMidwest", "West"]  
 PICTLS = ['PICTL', 'SSTPICTL']
 
-os.chdir("/glade/u/home/horowitz/tvar_dyn_adj/scriptrunner/")
+os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/scriptrunner/")
 
 for LOC in LOCS:
     for PICTL in PICTLS:
