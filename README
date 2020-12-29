@@ -1,0 +1,9 @@
+OVERVIEW
+
+---------------------------------------------
+STEP-BY-STEP DIRECTIONS
+1. After cloning repository, the first file you will need to run is scriptrunner/L0_scriptrunner_tas_slp_anom_MJJAS_creator.py. This will run py/L0/tas_slp_anom_MJJAS_creator.py for each region and save tas and slp anomalies for each region for May, June, July, August and September. These are currently set up to save to a scratch folder.
+
+2. Next, distance matrices need to be saved for the dynamical adjustment. This can be done be running L0_scriptrunner_distance_matrix.py.
+
+3. The dynamical adjustment can now be performed by running L0_scriptrunner_dyn_adj.py.
