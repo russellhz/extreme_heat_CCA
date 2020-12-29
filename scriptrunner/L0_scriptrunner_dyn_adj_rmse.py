@@ -29,7 +29,7 @@ for LOC in LOCS:
             fh.writelines("module load ncarenv\n")
             fh.writelines("module load python\n")
             fh.writelines("ncar_pylib my_npl_clone_casper\n")
-            fh.writelines("python ../py/L0/dyn_adj_sensitivity.py " + args + " > ../logs/dyn_adj_sensitivity_" + args_ + ".log\n")
+            fh.writelines("python ../py/L0/dyn_adj_sensitivity.py " + args + " > logs/dyn_adj_sensitivity_" + args_ + ".log\n")
             fh.writelines("deactivate\n")
             
         os.system("sbatch %s" %job_file)

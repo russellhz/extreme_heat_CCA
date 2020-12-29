@@ -22,7 +22,7 @@ for LOC in LOCS:
         fh.writelines("module load ncarenv\n")
         fh.writelines("module load python\n")
         fh.writelines("ncar_pylib my_npl_clone_casper\n")
-        fh.writelines("python ../py/L0/tas_anom_MJJAS_creator.py " + LOC + " > ../logs/tas_anom_MJJAS_creator_" + LOC+ ".log\n")
+        fh.writelines("python ../py/L0/tas_anom_MJJAS_creator.py " + LOC + " > logs/tas_anom_MJJAS_creator_" + LOC+ ".log\n")
         fh.writelines("deactivate\n")
         
     os.system("sbatch %s" %job_file)
