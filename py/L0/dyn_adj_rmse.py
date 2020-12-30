@@ -112,9 +112,6 @@ nyear = int(ndays/92)
 tas = tas.reshape((ndays, nlat*nlon))
 var = var.reshape((ndays, nlat*nlon))
 
-###################### ADJUST NUMBER OF YEARS ###############################
-days_to_choose = N_Y * 31
-
 
 ###################### LOAD DISTANCE MATRICES ###############################
 
