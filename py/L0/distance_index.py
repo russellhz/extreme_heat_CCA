@@ -40,4 +40,4 @@ for i in range(92):
     
     if i%10==0:
         print("Done with " + str(i))  
-    np.save(DIR + 'distance_matrices/distance_index_' + str(i), sim_idx.astype(int))
+    np.save(ODIR + 'distance_matrices/distance_index_' + str(i), sim_idx.astype(int))
