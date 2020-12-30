@@ -23,7 +23,7 @@ nyear = 1799
 
 for i in range(92):
     # Create empty array of same size as similarity array
-    sim_idx = np.empty(nyear,year_len*(nyear-1))
+    sim_idx = np.empty((nyear,year_len*(nyear-1)))
     num = year_len*(nyear-1)
     
     # List of year
