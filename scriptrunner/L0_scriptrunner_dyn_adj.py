@@ -27,6 +27,7 @@ for LOC in LOCS:
                 fh.writelines("#SBATCH --ntasks=1\n")
                 fh.writelines("#SBATCH --time=10:00:00\n")
                 fh.writelines("#SBATCH --partition=dav\n")
+                fh.writelines("#SBATCH --mem=50G\n")
                 fh.writelines("#SBATCH --output=out/dyn_adj.out.%j\n")
                 fh.writelines("module load ncarenv\n")
                 fh.writelines("module load python\n")
