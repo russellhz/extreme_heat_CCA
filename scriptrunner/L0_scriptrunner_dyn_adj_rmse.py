@@ -5,7 +5,7 @@ import os
 
 LOCS = ["Northeast", "NorthernRockiesandPlains", "Northwest", "OhioValley", "South", "Southeast", "Southwest", "UpperMidwest", "West"]  
 N_sets = [[150, 100, 1, 1798], [150, 100, 5, 1798], [150, 100, 10, 1798], [150, 100, 20, 1798]]
-os.chdir("/glade/u/home/horowitz/tvar_dyn_adj/scriptrunner/")
+os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/scriptrunner/")
 
 for LOC in LOCS:
     for sets in N_sets:
