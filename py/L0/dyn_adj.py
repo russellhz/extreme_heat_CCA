@@ -116,11 +116,15 @@ similarity = {}
 for i in range(92):
     similarity[i] = np.load(DIR + 'distance_matrices/distance_matrix_' + PICTL + '_' +  LOC + '_' + str(i) + '.npy')
 
+print("similarity matrices loaded")
+
 ###################### LOAD DISTANCE INDEX MATRIX ###############################
 
 similarity_idx = {}
 for i in range(92):
-    similarity_idx[i] = np.load(SCRATCH_DIR + 'distance_index_' + str(i) + '.npy')
+    similarity_idx[i] = np.load(DIR + 'distance_matrices/distance_index_' + str(i) + '.npy')
+
+print("similarity indices loaded")
 
 ###################### SELECT ANALOGS ###############################
 Tca_OLS = np.empty((92*1799,  nlat*nlon))
