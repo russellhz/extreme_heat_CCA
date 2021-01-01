@@ -181,7 +181,7 @@ ofn = DYN_ADJ_DIR + 'dyn_adj_' + fn_adder + '.nc'
 Tca.to_netcdf(path = ofn)
 
 # Save RMSE
-rmse = np.sqrt(((Tca_OLS - tas_JJA[92*1799,:])**2).mean(axis=0))
+rmse = np.sqrt(((Tca_OLS - tas_JJA[0:(92*1799),:])**2).mean(axis=0))
 
 rmse_xr = xr.DataArray(rmse.reshape(nlat, nlon), coords=[ lat, lon], dims=['lat', 'lon'], name = 'rmse')
 
