@@ -174,7 +174,7 @@ time = tmp.time[0:92*1799]
 lat, lon = tas_pictl.lat, tas_pictl.lon
 # Convert to dataset and write to netcdf
 Tca = xr.DataArray(Tca_OLS.reshape(92*1799, nlat, nlon), coords=[time , lat, lon], dims=['time', 'lat', 'lon'], name = 'dynamic')
-Tca = Tca * land.mask
+Tca = Tca.salem.subset(shape=shapefile).salem.roi(shape=shapefile) * land.mask
 fn_adder = '_'.join([PICTL, LOC, str(N), str(N_S), str(N_R), str(N_Y)])
 
 ofn = DYN_ADJ_DIR + 'dyn_adj_' + fn_adder + '.nc'
