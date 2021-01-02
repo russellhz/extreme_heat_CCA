@@ -17,7 +17,7 @@ import geopandas
 import random
 
 
-sys.path.append("../py/L0")
+sys.path.append("../L0")
 import L0_functions as L0
 
 ################################################################################
