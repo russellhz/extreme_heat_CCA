@@ -13,7 +13,7 @@ for LOC in LOCS:
         fh.writelines("#SBATCH --job-name=tas_anom_AMJJAS\n")
         fh.writelines("#SBATCH --account=P04010022\n")
         fh.writelines("#SBATCH --ntasks=1\n")
-        fh.writelines("#SBATCH --time=03:00:00\n")
+        fh.writelines("#SBATCH --time=04:00:00\n")
         fh.writelines("#SBATCH --partition=dav\n")
         fh.writelines("#SBATCH --mem=100G\n")
         fh.writelines("#SBATCH --output=out/tas_slp_anom_AMJJAS.out.%j\n")
