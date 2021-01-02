@@ -1,15 +1,17 @@
 *To Do
-- Need to add code for creating similarity index
-- Make sure similarity worked for SSTPICTL
+- Make sure tas_slp_anom_MJJAS works
 
 OVERVIEW
 
 ---------------------------------------------
 STEP-BY-STEP DIRECTIONS
-1. After cloning repository, add /jobs, /out, and /logs folders to /scriptrunner. 
+1. Running the dynamical adjustment (L0 code)
+a) After cloning repository, add /jobs, /out, and /logs folders to /scriptrunner. 
 
-2. The first file you will need to run is scriptrunner/L0_scriptrunner_tas_slp_anom_MJJAS_creator.py. This will run py/L0/tas_slp_anom_MJJAS_creator.py for each region and save tas and slp anomalies for each region for May, June, July, August and September. These are currently set up to save to a scratch folder.
+b) The first file you will need to run is scriptrunner/L0_scriptrunner_tas_slp_anom_MJJAS_creator.py. This will run py/L0/tas_slp_anom_MJJAS_creator.py for each region and save tas and slp anomalies for each region for May, June, July, August and September. These are currently set up to save to a scratch folder.
 
-3. Next, distance matrices need to be saved for the dynamical adjustment. This can be done be running L0_scriptrunner_distance_matrix.py.
+c) Next, distance matrices need to be saved for the dynamical adjustment. This can be done be running L0_scriptrunner_distance_matrix.py and L0_scriptrunner_distance_index.py.
 
-4. The dynamical adjustment can now be performed by running L0_scriptrunner_dyn_adj.py.
+d) The dynamical adjustment can now be performed by running L0_scriptrunner_dyn_adj.py. It will save both the dynamical predictions and the RMSE.
+
+2. Converting the output to a form that can be plotted (L1 code)
