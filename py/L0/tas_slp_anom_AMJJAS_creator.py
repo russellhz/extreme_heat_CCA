@@ -17,8 +17,7 @@ import argparse
 
 # Directories
 os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/py/L0")
-DIR = "/glade/work/horowitz/scratch/extreme_heat_CCA/MJJAS_anom"
-
+DIR = "/glade/scratch/horowitz/extreme_heat_CCA/AMJJAS_anom/"
 import L0_functions as L0
 
 
@@ -59,23 +58,22 @@ for var in ['TREFHT', 'PSL']:
         data_mf = xr.open_mfdataset(files, combine = "by_coords")
         print("PICTL files loaded")
 
-        tmp = data_mf.salem.subset(shape = shapefile)
-        mean_lon = tmp.lon.values.mean()
-        mean_lat = tmp.lat.values.mean()
-        data_sub = data_mf.salem.subset(corners = ((mean_lon - 54, mean_lat + 15),(mean_lon + 18, mean_lat - 15)))
+        mean_lon = shapefile.centroid.x.values[0]
+        mean_lat = shapefile.centroid.y.values[0]
+        data_sub = data_mf[var].salem.subset(corners = ((mean_lon - 54, mean_lat + 15),(mean_lon + 18, mean_lat - 15)))
+        data_sub = data_sub.to_dataset()
 
         # Remove seasonality from tas and slp data    
-        tas_pictl = data_sub.assign(anom = (('time', 'lat', 'lon'), L0.seasonality_removal_vals(data_sub[var].values, k=3)))
+        data_anom = data_sub.assign(anom = (('time', 'lat', 'lon'), L0.seasonality_removal_vals(data_sub[var].values, k=3)))
 
         print("PICTL seasonality removed")
 
-        # Filter slp to JJA
-        tas_pictl = tas_pictl.anom.sel(time = tas_pictl.time.dt.month.isin(range(5,10)))
+        # Filter slp to AMJJAS
+        data_anom = data_anom.anom.sel(time = data_anom.time.dt.month.isin(range(4,10)))
 
         # Save files
-        tas_pictl.to_netcdf(path = DIR + LOC + '/L0/' + var + '_' + PICTL_TYPE + "_"  + LOC + "_MJJAS_anom.nc")
+        data_anom.to_netcdf(path = DIR + var + '_' + PICTL_TYPE + "_"  + LOC + "_AMJJAS_anom.nc")
 
         print("Done with " + var + " in " + PICTL_TYPE)
-
 
 

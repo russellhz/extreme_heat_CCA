@@ -2,10 +2,6 @@
 
 import os
 
-os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/scriptrunner/")
-
-
-
 job_file = "jobs/distance_index.sbatch"
 open(job_file, 'a')
 
