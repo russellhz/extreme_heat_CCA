@@ -41,7 +41,7 @@ N_Y = args.N_Y
 os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/py/L0/")
 DIR = "/glade/scratch/horowitz/extreme_heat_CCA/"
 PICTL_DIR = DIR + 'AMJJAS_anom/'
-SHAPE_DIR = "/glade/u/home/horowitz/extreme_heat_CCA/shape_files/"
+SHAPE_DIR = "/glade/u/home/horowitz/extreme_heat_CCA/data/shape_files/"
 RMSE_DIR = "/glade/work/horowitz/extreme_heat_CCA/L1/rmse/"
 DYN_ADJ_DIR = "/glade/work/horowitz/extreme_heat_CCA/L1/dyn_adj/"
 
@@ -55,7 +55,7 @@ tas_pictl_fn = PICTL_DIR + "TREFHT_" + PICTL + "_" + LOC + "_AMJJAS_anom.nc"
 slp_pictl_fn = PICTL_DIR + "PSL_" + PICTL + "_" + LOC + "_AMJJAS_anom.nc"
 
 # Land mask file
-land_file = "/glade/work/horowitz/forced_response/soil_map_global.nc"
+land_file = "/glade/u/home/horowitz/extreme_heat_CCA/data/soil_map_global.nc"
 
 ##################### LOAD SHAPEFILE DATA ##################
 shapefile = geopandas.read_file(SHAPE_DIR + LOC + '.json')

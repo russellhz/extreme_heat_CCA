@@ -23,7 +23,7 @@ import L0_functions as L0
 
 ##################### INPUTS ###########################
 PICTL_DIR = "/glade/collections/cdg/data/cesmLE/CESM-CAM5-BGC-LE/atm/proc/tseries/daily/"
-SHAPE_DIR = "/glade/u/home/horowitz/extreme_heat_CCA//shape_files/"
+SHAPE_DIR = "/glade/u/home/horowitz/extreme_heat_CCA/data/shape_files/"
 
 # Parser arguments
 parser = argparse.ArgumentParser()
