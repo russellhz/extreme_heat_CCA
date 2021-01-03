@@ -182,8 +182,10 @@ fn_adder = '_'.join([PICTL, LOC, str(N), str(N_S), str(N_R), str(N_Y)])
 ofn = DYN_ADJ_DIR + 'dyn_adj_' + fn_adder + '.nc'
 Tca.to_netcdf(path = ofn)
 
-# Save RMSE
-rmse = np.sqrt(((Tca_OLS - tas_MJJA[0:(MJJA_days*1799),:])**2).mean(axis=0))
+# Save RMSE for JJA only
+dynamic_JJA = Tca.dynamic.sel(time = Tca.time.dt.month.isin([6,7,8]))
+tas_JJA = tas_pictl.anom.sel(time = tas_pictl.time.dt.month.isin([6,7,8]))
+rmse = np.sqrt(((dynamic_JJA - tas_JJA[0:(92*1799),:])**2).mean(axis=0))
 
 rmse_xr = xr.DataArray(rmse.reshape(nlat, nlon), coords=[ lat, lon], dims=['lat', 'lon'], name = 'rmse')
 
