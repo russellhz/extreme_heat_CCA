@@ -40,17 +40,19 @@ N_Y = args.N_Y
 ##################### DIRECTORIES ###########################
 os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/py/L0/")
 DIR = "/glade/scratch/horowitz/extreme_heat_CCA/"
-PICTL_DIR = DIR + 'MJJAS_anom/'
+PICTL_DIR = DIR + 'AMJJAS_anom/'
 SHAPE_DIR = "/glade/u/home/horowitz/extreme_heat_CCA/shape_files/"
 RMSE_DIR = "/glade/work/horowitz/extreme_heat_CCA/L1/rmse/"
 DYN_ADJ_DIR = "/glade/work/horowitz/extreme_heat_CCA/L1/dyn_adj/"
+
+MJJA_days = 123
 
 import L0_functions as L0
 
 ##################### INPUTS ###########################
 # PICTL Files
-tas_pictl_fn = PICTL_DIR + "TREFHT_" + PICTL + "_" + LOC + "_MJJAS_anom.nc"
-slp_pictl_fn = PICTL_DIR + "PSL_" + PICTL + "_" + LOC + "_MJJAS_anom.nc"
+tas_pictl_fn = PICTL_DIR + "TREFHT_" + PICTL + "_" + LOC + "_AMJJAS_anom.nc"
+slp_pictl_fn = PICTL_DIR + "PSL_" + PICTL + "_" + LOC + "_AMJJAS_anom.nc"
 
 # Land mask file
 land_file = "/glade/work/horowitz/forced_response/soil_map_global.nc"
@@ -83,37 +85,37 @@ tas_pictl['lat']  =  np.round(tas_pictl.lat, 2)
 print("tas files loaded")
 
 ###################### FILTER DATA ###############################
-# Filter to JJA
-slp_JJA = slp_pictl.anom.sel(time = slp_pictl.time.dt.month.isin([6,7,8])).values
-tas_JJA = tas_pictl.anom.sel(time = tas_pictl.time.dt.month.isin([6,7,8])).values
+# Filter to MJJA
+slp_MJJA = slp_pictl.anom.sel(time = slp_pictl.time.dt.month.isin([5, 6,7,8])).values
+tas_MJJA = tas_pictl.anom.sel(time = tas_pictl.time.dt.month.isin([5, 6,7,8])).values
 
-ndays = slp_JJA.shape[0]
-nlat = slp_JJA.shape[1]
-nlon = slp_JJA.shape[2]
-nyear = int(ndays/92)
+ndays = slp_MJJA.shape[0]
+nlat = slp_MJJA.shape[1]
+nlon = slp_MJJA.shape[2]
+nyear = int(ndays/MJJA_days)
 
-slp_JJA = slp_JJA.reshape((ndays, nlat*nlon))
-tas_JJA = tas_JJA.reshape((ndays, nlat*nlon))
+slp_MJJA = slp_MJJA.reshape((ndays, nlat*nlon))
+tas_MJJA = tas_MJJA.reshape((ndays, nlat*nlon))
 
-print("JJA reshaped")
+print("JMJA reshaped")
 
-# Save MJJAS data
-slp_MJJAS = slp_pictl.anom.values
-tas_MJJAS = tas_pictl.anom.values
+# Save AMJJAS data
+slp_AMJJAS = slp_pictl.anom.values
+tas_AMJJAS = tas_pictl.anom.values
 
 
-ndays = slp_MJJAS.shape[0]
+ndays = slp_AMJJAS.shape[0]
 
-slp_MJJAS = slp_MJJAS.reshape((ndays, nlat*nlon))
-tas_MJJAS = tas_MJJAS.reshape((ndays, nlat*nlon))
+slp_AMJJAS = slp_AMJJAS.reshape((ndays, nlat*nlon))
+tas_AMJJAS = tas_AMJJAS.reshape((ndays, nlat*nlon))
 
-print("MJJAS reshaped")
+print("AMJJAS reshaped")
 
 
 ###################### LOAD DISTANCE MATRICES ###############################
 
 similarity = {}
-for i in range(92):
+for i in range(MJJA_days):
     similarity[i] = np.load(DIR + 'distance_matrices/distance_matrix_' + PICTL + '_' +  LOC + '_' + str(i) + '.npy')
 
 print("similarity matrices loaded")
@@ -121,19 +123,19 @@ print("similarity matrices loaded")
 ###################### LOAD DISTANCE INDEX MATRIX ###############################
 
 similarity_idx = {}
-for i in range(92):
+for i in range(MJJA_days):
     similarity_idx[i] = np.load(DIR + 'distance_matrices/distance_index_' + str(i) + '.npy')
 
 print("similarity indices loaded")
 
 ###################### SELECT ANALOGS ###############################
-Tca_OLS = np.empty((92*1799,  nlat*nlon))
+Tca_OLS = np.empty((MJJA_days*1799,  nlat*nlon))
 
-for i in range(92*1799):
-    day_of_JJA = i%92
-    year = math.floor(i/92)
+for i in range(MJJA_days*1799):
+    day_of_MJJA = i%MJJA_days
+    year = math.floor(i/MJJA_days)
 
-    z = similarity[day_of_JJA][year,:] # distance measurements for days in all other years
+    z = similarity[day_of_MJJA][year,:] # distance measurements for days in all other years
     z_by_year = np.array_split(z, 1798) # split into array for each year
 
     # Reduce to number of desired years
@@ -150,13 +152,13 @@ for i in range(92*1799):
         closest = np.argsort(z[min_yr_indices])
         closest = np.random.choice(closest[:(N)], N_S, replace=False)  
         # Need to convert index back to full dates
-        idx = similarity_idx[day_of_JJA][year,min_yr_indices[closest]]
+        idx = similarity_idx[day_of_MJJA][year,min_yr_indices[closest]]
 
         # Select analogs
-        analogs = slp_MJJAS[idx,:]
+        analogs = slp_AMJJAS[idx,:]
         X = analogs.transpose()
-        y = slp_JJA[i,:]
-        X_t = tas_MJJAS[idx,:].transpose()
+        y = slp_MJJA[i,:]
+        X_t = tas_AMJJAS[idx,:].transpose()
 
         ###################### OLS ###############################
         # Construct temp analog
@@ -168,12 +170,12 @@ for i in range(92*1799):
     Tca_OLS[i, :] = tmp_OLS.mean(axis=0)
 
 ###################### OUTPUT RESULTS ###############################
-tmp = tas_pictl.sel(time = tas_pictl.time.dt.month.isin([6,7,8]))
-time = tmp.time[0:92*1799]
+tmp = tas_pictl.sel(time = tas_pictl.time.dt.month.isin([5,6,7,8]))
+time = tmp.time[0:MJJA_days*1799]
 
 lat, lon = tas_pictl.lat, tas_pictl.lon
 # Convert to dataset and write to netcdf
-Tca = xr.DataArray(Tca_OLS.reshape(92*1799, nlat, nlon), coords=[time , lat, lon], dims=['time', 'lat', 'lon'], name = 'dynamic')
+Tca = xr.DataArray(Tca_OLS.reshape(MJJA_days*1799, nlat, nlon), coords=[time , lat, lon], dims=['time', 'lat', 'lon'], name = 'dynamic')
 Tca = Tca.salem.subset(shape=shapefile).salem.roi(shape=shapefile) * land.mask
 fn_adder = '_'.join([PICTL, LOC, str(N), str(N_S), str(N_R), str(N_Y)])
 
@@ -181,7 +183,7 @@ ofn = DYN_ADJ_DIR + 'dyn_adj_' + fn_adder + '.nc'
 Tca.to_netcdf(path = ofn)
 
 # Save RMSE
-rmse = np.sqrt(((Tca_OLS - tas_JJA[0:(92*1799),:])**2).mean(axis=0))
+rmse = np.sqrt(((Tca_OLS - tas_MJJA[0:(MJJA_days*1799),:])**2).mean(axis=0))
 
 rmse_xr = xr.DataArray(rmse.reshape(nlat, nlon), coords=[ lat, lon], dims=['lat', 'lon'], name = 'rmse')
 
