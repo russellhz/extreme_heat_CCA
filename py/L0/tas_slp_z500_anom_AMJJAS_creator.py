@@ -48,7 +48,7 @@ shapefile_shift = shapefile.translate(xoff=360)
 shapefile['geometry'] = shapefile_shift
 
 ##################### LOAD PICTL DATA ##################
-for var in ['TREFHT', 'PSL']:
+for var in ['TREFHT', 'PSL', 'Z500']:
     for PICTL_TYPE in ['SSTPICTL', 'PICTL']:
         # PiCTL files
         files = [f for f in glob.glob(PICTL_DIR + var + '/' + PICTL_dict[PICTL_TYPE] + "*.nc")]
