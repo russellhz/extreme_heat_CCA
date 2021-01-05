@@ -21,6 +21,22 @@ sys.path.append("../L0")
 import L0_functions as L0
 
 ################################################################################
+# Function speeds up indexing by time by orders of magnitude
+# First need to create a list of cftime dates that we want
+def time_index_fun(xr_data, date_list):
+    date_dict = {item: idx for idx, item in enumerate(xr_data.time.values)}
+    idx = [date_dict.get(item) for item in date_list]
+    if len(xr_data.shape) == 1:
+        return xr_data[idx]
+    if len(xr_data.shape) == 2:
+        return xr_data[idx,:]
+    else:
+        return xr_data[idx,:,:]
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
 
 def covar_adder_shape(code, key, var, path, pattern, dates, all_data, shapefile, pictl_type):
     covar_dir = path + key + '/proc/tseries/daily/'
