@@ -130,6 +130,8 @@ dyn_adj = dyn_adj.dynamic.salem.roi(shape = shapefile)
 
 # Desired time range
 # Using a dictionary to speed up indexing, which can be very slow
+max_year = dyn_adj.time.dt.year.max().values
+heat_week_dates = list(filter(lambda x: (x.year <= max_year), heat_week_dates))  
 dyn_adj_filter = L1.time_index_fun(dyn_adj, heat_week_dates)
 print("dynamic filtered to heatweek dates")
 
@@ -185,8 +187,14 @@ for VAR in VARS:
     data['lon'] = np.float64(data.lon)
     data = data.rename({'anom' : VAR})
 
-    data = L1.time_index_fun(data[VAR], composite_dates)
-
+    # Need to remove year 402 from dates if soilwater is the var 
+    # Soilwater data starts in year 403 for some reason
+    if VAR == 'soilwater_10cm':
+        composite_dates_soilwater = [x for x in composite_dates if x.year != 402]
+        data = L1.time_index_fun(data[VAR], composite_dates_soilwater)
+    else:
+        data = L1.time_index_fun(data[VAR], composite_dates)
+        
     # Desired spatial range
     data = data.assign_coords(lon=(((data.lon + 180) % 360) - 180)).sortby("lon")
     data = data.salem.subset(corners = ( (all_vars.lon.min(), all_vars.lat.min()), (all_vars.lon.max(), all_vars.lat.max()) ) )
