@@ -1,5 +1,5 @@
 *To Do
-- Make sure tas_slp_anom_MJJAS works
+- CESMLE
 
 OVERVIEW
 
@@ -15,3 +15,8 @@ c) Next, distance matrices need to be saved for the dynamical adjustment. This c
 d) The dynamical adjustment for May, June, July, and August can now be performed by running L0_scriptrunner_dyn_adj.py. It will save both the dynamical predictions and the RMSE.
 
 2. Converting the output to a form that can be plotted (L1 code)
+a) Run L1_scriptrunner_gridded_composite_data.py. This creates the composite data and outputs heatwave dates. 
+
+b) Run both L1_scriptrunner_gridded_slp_z500.py and L1_scriptrunner_JJA_variance.py.
+
+3. 
