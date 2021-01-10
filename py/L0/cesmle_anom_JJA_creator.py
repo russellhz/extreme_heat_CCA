@@ -65,7 +65,7 @@ for fn in files[1:]:
 
 # Remove seasonality from tas  
 slp_all = slp_all.to_dataset().sel(time = slice("1920-01-01", "2100-12-31"))
-# slp_all = slp_all.assign(anom = (('time', 'lat', 'lon'), L0.seasonality_removal_vals(slp_all['PSL'].values, k=3)))
+slp_all = slp_all.assign(anom = (('time', 'lat', 'lon'), L0.seasonality_removal_vals(slp_all['PSL'].values, k=3)))
 print("slp seasonality removed") 
 
 slp_all = slp_all.anom.sel(time = slp_all.time.dt.month.isin(range(6,9)))
