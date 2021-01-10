@@ -56,7 +56,7 @@ files.sort(key=lambda f: int(re.sub('\D', '', f)))
 slp_all = xr.open_dataset(files[0])
 # Subset to CONUS
 slp_all = slp_all.PSL.salem.subset(shape=shapefile)
-print('loaded and filtered ' + fn)
+print('loaded and filtered ' + files[0])
 for fn in files[1:]:
     tmp = xr.open_dataset(fn)
     tmp = tmp.PSL.salem.subset(shape=shapefile)
@@ -86,7 +86,7 @@ files.sort(key=lambda f: int(re.sub('\D', '', f)))
 sm_all = xr.open_dataset(files[0])
 # Subset to CONUS
 sm_all = sm_all.SOILWATER_10CM.salem.subset(shape=shapefile)
-print('loaded and filtered ' + fn)
+print('loaded and filtered ' + files[0])
 for fn in files[1:]:
     tmp = xr.open_dataset(fn)
     tmp = tmp.SOILWATER_10CM.salem.subset(shape=shapefile)
