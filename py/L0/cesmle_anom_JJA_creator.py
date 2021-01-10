@@ -68,7 +68,7 @@ slp_all = slp_all.to_dataset().sel(time = slice("1920-01-01", "2100-12-31"))
 # slp_all = slp_all.assign(anom = (('time', 'lat', 'lon'), L0.seasonality_removal_vals(slp_all['PSL'].values, k=3)))
 print("slp seasonality removed") 
 
-slp_all = slp_all.PSL.sel(time = slp_all.time.dt.month.isin(range(6,9)))
+slp_all = slp_all.anom.sel(time = slp_all.time.dt.month.isin(range(6,9)))
 
 slp_all.to_netcdf(DIR + 'CESM-LE_PSL_anom_' + code + '_19200101-21001231.nc' )
 
@@ -98,7 +98,7 @@ sm_all = sm_all.to_dataset().sel(time = slice("1920-01-01", "2100-12-31"))
 sm_all = sm_all.assign(anom = (('time', 'lat', 'lon'), L0.seasonality_removal_vals(sm_all['SOILWATER_10CM'].values, k=3)))
 print("soil moisture seasonality removed") 
 
-sm_all = sm_all.PSL.sel(time = sm_all.time.dt.month.isin(range(6,9)))
+sm_all = sm_all.anom.sel(time = sm_all.time.dt.month.isin(range(6,9)))
 
-sm_all.to_netcdf(DIR + 'CESM-LE_PSL_anom_' + code + '_19200101-21001231.nc' )
+sm_all.to_netcdf(DIR + 'CESM-LE_SOILWATER_10CM_anom_' + code + '_19200101-21001231.nc' )
 
