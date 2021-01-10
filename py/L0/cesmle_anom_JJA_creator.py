@@ -71,7 +71,7 @@ print("slp seasonality removed")
 slp_all = slp_all.anom.sel(time = slp_all.time.dt.month.isin(range(6,9)))
 
 # Convert to float32 to limit memory
-slp_all =np.float32(slp_all)
+slp_all = slp_all.astype('float32')
 
 slp_all.to_netcdf(DIR + 'CESM-LE_PSL_anom_' + code + '_19200101-21001231.nc' )
 
@@ -104,7 +104,7 @@ print("soil moisture seasonality removed")
 sm_all = sm_all.anom.sel(time = sm_all.time.dt.month.isin(range(6,9)))
 
 # Convert to float32 to limit memory
-sm_all =np.float32(sm_all)
+sm_all = sm_all.astype('float32')
 
 sm_all.to_netcdf(DIR + 'CESM-LE_SOILWATER_10CM_anom_' + code + '_19200101-21001231.nc' )
 
