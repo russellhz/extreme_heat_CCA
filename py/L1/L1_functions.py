@@ -304,11 +304,11 @@ def top_bottom_years(LOC, PICTL_TYPE, var, thresh):
 def corr2_coeff(AVGPAT, slp_stack):
     # Rowwise mean of input arrays & subtract from input arrays themeselves
     x = AVGPAT - AVGPAT.mean()
-    y = slp_stack - slp_stack.mean('grid')
+    y = slp_stack - slp_stack.mean(axis=1).reshape(-1, 1)
 
     # Sum of squares across rows
     ssx = (x**2).sum()
-    ssy = (y**2).sum('grid')
+    ssy = (y**2).sum(axis=1)
 
     # Finally get corr coeff
     return np.dot(x, y.T) / np.sqrt(np.dot(ssx,ssy))
