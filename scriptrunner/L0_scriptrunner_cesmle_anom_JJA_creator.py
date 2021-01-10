@@ -14,6 +14,7 @@ slp_fns.extend([f for f in glob.glob(CESMLE_DIR + "PSL/b.e11.BRCP85C5CNBDRD.f09_
 
 # Find codes
 ensemble_codes = np.unique([re.search(r'(?<=.)[0-9]{3}(?=.)', i).group() for i in slp_fns])
+ensemble_codes = [c for c in ensemble_codes if c not in ['106', '107']]
 ensemble_codes = np.sort(ensemble_codes)  
 
 for code in ensemble_codes:
