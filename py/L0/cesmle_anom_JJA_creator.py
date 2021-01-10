@@ -54,14 +54,14 @@ files = [f for f in slp_fns if '.' + code + '.' in f]
 files.sort(key=lambda f: int(re.sub('\D', '', f)))
 
 slp_all = xr.open_dataset(files[0])
-# Subset to CONUS
-slp_all = slp_all.PSL.salem.subset(shape=shapefile)
+slp_all = slp_all.PSL.salem.subset(corners=((180,20), (310,60)))
 print('loaded and filtered ' + files[0])
 for fn in files[1:]:
     tmp = xr.open_dataset(fn)
-    tmp = tmp.PSL.salem.subset(shape=shapefile)
+    tmp = tmp.PSL.salem.subset(corners=((180,20), (310,60)))
     slp_all = xr.concat([slp_all, tmp], dim = 'time')
     print('added in ' + fn)
+slp_all = slp_all.assign_coords(lon=(((slp_all.lon + 180) % 360) - 180)).sortby("lon")
 
 # Remove seasonality from tas  
 slp_all = slp_all.to_dataset().sel(time = slice("1920-01-01", "2100-12-31"))
