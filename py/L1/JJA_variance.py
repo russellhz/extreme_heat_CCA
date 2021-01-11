@@ -115,9 +115,11 @@ for LOC in LOCS:
 
         d2d_variance = tmp.groupby(tmp.time.dt.year).var().mean('year')
 
+        d2d_sd = np.sqrt(tmp.groupby(tmp.time.dt.year).var()).mean('year')
+
         variance.to_netcdf(DIR + 'tas_variance_' + LOC + '_' + PICTL_TYPE + '.nc')
         y2y_variance.to_netcdf(DIR + 'tas_y2y_variance_' + LOC + '_' + PICTL_TYPE + '.nc')
         d2d_variance.to_netcdf(DIR + 'tas_d2d_variance_' + LOC + '_' + PICTL_TYPE + '.nc')
-
+        d2d_sd.to_netcdf(DIR + 'tas_d2d_sd_' + LOC + '_' + PICTL_TYPE + '.nc')
         print('TAS: Done with ' + LOC + ' in ' + PICTL_TYPE)
         print('----------------------------------------')
