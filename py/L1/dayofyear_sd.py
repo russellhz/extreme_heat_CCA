@@ -17,6 +17,7 @@ import geopandas
 import salem
 import math
 import warnings
+import sys
 warnings.filterwarnings("ignore")
 
 sys.path.append("/glade/u/home/horowitz/extreme_heat_CCA/py/L0")
@@ -95,6 +96,7 @@ for LOC in LOCS:
     tas_JJA = tas.anom.sel(time = tas.time.dt.month.isin(range(6,9)))
 
     # Take mean just over region, only over land
+    as_JJA = tas_JJA.salem.subset(shape=shapefile)
     tas_JJA = tas_JJA.salem.roi(shape=shapefile) * land.mask
     
     tas_JJA_mean = tas_JJA.mean(dim = ['lon', 'lat'])
