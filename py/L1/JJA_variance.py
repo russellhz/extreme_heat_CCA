@@ -67,9 +67,12 @@ for PICTL_TYPE in PICTL_TYPES:
 
         d2d_variance = tmp.groupby(tmp.time.dt.year).var().mean('year')
 
+        d2d_sd = np.sqrt(tmp.groupby(tmp.time.dt.year).var()).mean('year')
+
         variance.to_netcdf(DIR + 'sm_variance_' + LOC + '_' + PICTL_TYPE + '.nc')
         y2y_variance.to_netcdf(DIR + 'sm_y2y_variance_' + LOC + '_' + PICTL_TYPE + '.nc')
         d2d_variance.to_netcdf(DIR + 'sm_d2d_variance_' + LOC + '_' + PICTL_TYPE + '.nc')
+        d2d_sd.to_netcdf(DIR + 'sm_d2d_sd_' + LOC + '_' + PICTL_TYPE + '.nc')
 
         print('SM: Done with ' + LOC + ' in ' + PICTL_TYPE)
         print('----------------------------------------')
