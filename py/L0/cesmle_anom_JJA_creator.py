@@ -54,10 +54,12 @@ files = [f for f in slp_fns if '.' + code + '.' in f]
 files.sort(key=lambda f: int(re.sub('\D', '', f)))
 
 slp_all = xr.open_dataset(files[0])
+slp_all['lat'] =  np.round(slp_all.lat, 2)
 slp_all = slp_all.PSL.salem.subset(corners=((180,18), (310,60)))
 print('loaded and filtered ' + files[0])
 for fn in files[1:]:
     tmp = xr.open_dataset(fn)
+    tmp['lat'] =  np.round(tmp.lat, 2)
     tmp = tmp.PSL.salem.subset(corners=((180,18), (310,60)))
     slp_all = xr.concat([slp_all, tmp], dim = 'time')
     print('added in ' + fn)
@@ -88,10 +90,13 @@ files.sort(key=lambda f: int(re.sub('\D', '', f)))
 
 sm_all = xr.open_dataset(files[0])
 # Subset to CONUS
+sm_all['lat'] =  np.round(sm_all.lat, 2)
+# Subset to CONUS
 sm_all = sm_all.SOILWATER_10CM.salem.subset(shape=shapefile)
 print('loaded and filtered ' + files[0])
 for fn in files[1:]:
     tmp = xr.open_dataset(fn)
+    tmp['lat'] =  np.round(tmp.lat, 2)
     tmp = tmp.SOILWATER_10CM.salem.subset(shape=shapefile)
     sm_all = xr.concat([sm_all, tmp], dim = 'time')
     print('added in ' + fn)
