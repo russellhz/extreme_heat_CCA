@@ -103,6 +103,8 @@ for fn in files[1:]:
 
 # Remove seasonality from tas  
 sm_all = sm_all.to_dataset().sel(time = slice("1920-01-01", "2100-12-31"))
+# Fill nans with zero to avoid error in seasonality calculation
+sm_all = sm_all.fillna(0)
 sm_all = sm_all.assign(anom = (('time', 'lat', 'lon'), L0.seasonality_removal_vals(sm_all['SOILWATER_10CM'].values, k=3)))
 print("soil moisture seasonality removed") 
 
