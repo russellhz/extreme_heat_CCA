@@ -183,7 +183,7 @@ ofn = DYN_ADJ_DIR + 'dyn_adj_' + fn_adder + '.nc'
 Tca.to_netcdf(path = ofn)
 
 # Save RMSE for JJA only
-dynamic_JJA = Tca.dynamic.sel(time = Tca.time.dt.month.isin([6,7,8]))
+dynamic_JJA = Tca.sel(time = Tca.time.dt.month.isin([6,7,8]))
 tas_JJA = tas_pictl.anom.sel(time = tas_pictl.time.dt.month.isin([6,7,8]))
 rmse = np.sqrt(((dynamic_JJA - tas_JJA[0:(92*1799),:])**2).mean(axis=0))
 

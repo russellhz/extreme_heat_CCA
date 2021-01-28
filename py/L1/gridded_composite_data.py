@@ -175,7 +175,7 @@ all_vars = all_vars.assign(residual = all_vars.tas - all_vars.dynamic)
 ##############################################################
 ####################### ADD COVARS ##########################
 ##############################################################
-VARS = ['lhflx', 'shflx', 'soilwater_10cm']
+VARS = ['lhflx', 'shflx', 'soilwater_10cm', 'ts']
 
 for VAR in VARS:
     fn = MJJA_DIR + VAR.upper() + '_' + PICTL_TYPE + '_CONUS_MJJA_anom.nc'

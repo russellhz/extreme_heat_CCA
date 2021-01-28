@@ -2,7 +2,7 @@
 
 import os
 
-VARS = ["lhflx", "shflx", "soilwater_10cm"]  
+VARS = ["lhflx", "shflx", "soilwater_10cm", "ts"]  
 
 for VAR in VARS:
     job_file = "jobs/" + 'covar_anom_MJJA_creator_'+ VAR +'.sbatch'
