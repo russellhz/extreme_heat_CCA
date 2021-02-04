@@ -38,10 +38,20 @@ PICTL_TYPE = "PICTL"
 slp_data_dict = {}
 for LOC in LOCS:
     fn = DIR + 'gridded_slp_z500/gridded_slp_z500_' + PICTL_TYPE + '_' + LOC + '.nc'
-    ################## OPEN DATA ######################        
-    data = xr.open_dataset(fn).mean(dim='time')
+    
+    # Find heatwave years
+    dates = np.load(DIR + 'top_dyn_composite_dates_' + PICTL_TYPE + '_' + LOC + '.npy', allow_pickle=True)
+    years = np.unique([dates[i].year for i in range(len(dates))])
+    
+    # Open data        
+    data = xr.open_dataset(fn)
+    
+    # Filter to heatwave years and take mean
+    data = data.sel(time=data.time.dt.year.isin(years))
+    data = data.mean(dim='time')
+    
     slp_data_dict[LOC] = data.slp 
-
+    
 ##############################################################################
 ################             CESM-LE Correlation              ################
 ##############################################################################
