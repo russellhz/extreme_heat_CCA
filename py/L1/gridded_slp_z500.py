@@ -36,6 +36,8 @@ for LOC in LOCS:
         # Load in heatwave dates
         ############################################################
         heatwave_dates = np.load(DATE_DIR + 'heatwave_dates_' + PICTL_TYPE + '_' + LOC + '.npy', allow_pickle=True)
+        max_year = 1799
+        heatwave_dates = heatwave_dates[0:max_year]
 
         # All days in heatwaves
         heat_week_dates = list()
@@ -43,9 +45,6 @@ for LOC in LOCS:
             dates_begin = xr.cftime_range(end=date, periods=4, freq="D", calendar="noleap").to_list()[:-1]
             dates_end = xr.cftime_range(start=date, periods= 4, freq="D", calendar="noleap").to_list()
             heat_week_dates = heat_week_dates + dates_begin + dates_end
-
-        max_year = 1799
-        heat_week_dates = list(filter(lambda x: (x.year <= max_year), heat_week_dates))  
         print("heatweek dates calculated")
         ############################################################
         # Load SLP and Z500 and filter to dates
