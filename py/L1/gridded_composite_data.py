@@ -83,8 +83,10 @@ tas_filter = tas_filter.salem.roi(shape = shapefile)
 tas_filter = tas_filter * land.mask
 print("tas filtered to region")
 
-# Spatial mean & limit to JJA 
-tas_filter_mean = tas_filter.mean(dim = ["lon", "lat"])
+# Weighted regional mean & limit to JJA 
+weights = np.cos(np.deg2rad(tas_filter.lat))
+weights.name = "weights"
+tas_filter_mean = tas_filter.weighted(weights).mean(("lon", "lat")) 
 print("tas spatial mean calculated")
 
 # Create a list of all summer dates

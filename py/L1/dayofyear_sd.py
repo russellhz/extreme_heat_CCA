@@ -80,7 +80,9 @@ for LOC in LOCS:
     
     slp_JJA = slp.anom.sel(time = slp.time.dt.month.isin(range(6,9)))
 
-    slp_JJA_mean = slp_JJA.mean(dim = ['lon', 'lat'])
+    weights = np.cos(np.deg2rad(slp_JJA.lat))
+    weights.name = "weights"
+    slp_JJA_mean = slp_JJA.weighted(weights).mean(("lon", "lat")) 
     print("slp regional mean calculated")
     
     slp_dayofyear_mean = slp_JJA_mean.groupby(slp_JJA_mean.time.dt.dayofyear).mean()
@@ -96,10 +98,12 @@ for LOC in LOCS:
     tas_JJA = tas.anom.sel(time = tas.time.dt.month.isin(range(6,9)))
 
     # Take mean just over region, only over land
-    as_JJA = tas_JJA.salem.subset(shape=shapefile)
+    tas_JJA = tas_JJA.salem.subset(shape=shapefile)
     tas_JJA = tas_JJA.salem.roi(shape=shapefile) * land.mask
     
-    tas_JJA_mean = tas_JJA.mean(dim = ['lon', 'lat'])
+    weights = np.cos(np.deg2rad(tas_JJA.lat))
+    weights.name = "weights"
+    tas_JJA_mean = tas_JJA.weighted(weights).mean(("lon", "lat")) 
     print("tas regional mean calculated")
     
     tas_dayofyear_mean = tas_JJA_mean.groupby(tas_JJA_mean.time.dt.dayofyear).mean()
