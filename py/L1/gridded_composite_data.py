@@ -109,7 +109,7 @@ maxheat_idx = df.groupby(['year'])['tas_roll'].transform(max) == df['tas_roll']
 heatwave_dates = df[maxheat_idx].date.tolist()
 print("max heat days calculated")
 
-np.save(ODIR + 'heatwave_dates_' + PICTL_TYPE + '_' + LOC, heatwave_dates)
+np.save(ODIR + 'dates/heatwave_dates_' + PICTL_TYPE + '_' + LOC, heatwave_dates)
 
 # All days in heatwaves
 heat_week_dates = list()
@@ -161,7 +161,7 @@ for date in top_dyn_dates:
     composite_dates = composite_dates + dates_begin + dates_end
 
 # Filter all_dates to top_dyn_dates
-np.save(ODIR + 'top_dyn_composite_dates_' + PICTL_TYPE + '_' + LOC, composite_dates)
+np.save(ODIR + 'dates/top_dyn_composite_dates_' + PICTL_TYPE + '_' + LOC, composite_dates)
 
 ##############################################################
 ####################### COMBINE TEMP DATA ##########################

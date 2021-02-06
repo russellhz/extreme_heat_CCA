@@ -84,3 +84,33 @@ for fn in cesmle_fns:
     print("Done with " + code)
 
 df_all.to_csv(DIR+'cesmle_slp_correlation.csv')
+
+# Correlation with mean
+
+df_all = pd.DataFrame()
+
+for fn in cesmle_fns:
+    code = re.search(r'(?<=_)[0-9]{3}(?=_)', fn).group()
+    data = xr.open_dataset(fn)
+    data['lat'] = np.round(data['lat'], 2)
+    for LOC in LOCS:
+        heatwave = slp_data_dict[LOC]
+        # Filter data to location
+        data_loc = data.salem.subset(corners = ((heatwave.lon.min(),heatwave.lat.min()), 
+                                                (heatwave.lon.max(),heatwave.lat.max()))).anom
+
+        # Get mean in each summer
+        data_loc_mean = data_loc.groupby(data_loc.time.dt.year).mean()
+
+        nlat = heatwave.shape[0]
+        nlon = heatwave.shape[1]
+        nyears = data_loc_mean.shape[0]
+
+        heatwave = heatwave.values.reshape((nlat*nlon)).reshape(1, -1)
+        data_loc_mean_vals = data_loc_mean.values.reshape((nyears, nlat*nlon))
+
+        corr = L1.corr2_coeff(heatwave, data_loc_mean_vals)
+        df_loc = pd.DataFrame({'region':LOC, 'code': code, 'year':data_loc_mean.year.values, 'correlation':corr[0,:]})
+        df_all = pd.concat([df_all, df_loc])
+    print("Done with " + code)
+df_all.to_csv(DIR+'cesmle_mean_slp_correlation.csv')
