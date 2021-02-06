@@ -40,7 +40,7 @@ for LOC in LOCS:
     fn = DIR + 'gridded_slp_z500/gridded_slp_z500_' + PICTL_TYPE + '_' + LOC + '.nc'
     
     # Find heatwave years
-    dates = np.load(DIR + 'top_dyn_composite_dates_' + PICTL_TYPE + '_' + LOC + '.npy', allow_pickle=True)
+    dates = np.load(DIR + 'dates/top_dyn_composite_dates_' + PICTL_TYPE + '_' + LOC + '.npy', allow_pickle=True)
     years = np.unique([dates[i].year for i in range(len(dates))])
     
     # Open data        
