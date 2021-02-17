@@ -41,7 +41,7 @@ MJJA_DIR = "/glade/scratch/horowitz/extreme_heat_CCA/MJJA_anom/"
 AMJJAS_DIR = "/glade/scratch/horowitz/extreme_heat_CCA/AMJJAS_anom/"
 CESMLE_DIR = "/glade/scratch/horowitz/extreme_heat_CCA/JJA_anom/"
 
-os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/py/L1")
+sys.path.append("/glade/u/home/horowitz/extreme_heat_CCA/py/L1")
 import L1_functions as L1
 
 os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/py/L2")
