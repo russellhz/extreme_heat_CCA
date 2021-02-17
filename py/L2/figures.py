@@ -4,7 +4,7 @@
 
 @author: rhorowitz
 """
-
+import sys
 import xarray as xr
 import os
 import glob
