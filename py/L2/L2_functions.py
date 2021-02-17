@@ -31,6 +31,8 @@ import matplotlib.ticker as mtick
 import warnings
 warnings.filterwarnings("ignore")
 
+os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/py/L1")
+import L1_functions as L1
 
 def remove_duplicate_grid(df_tmp, lat1, lat2, lon1, lon2):
     df_tmp = df_tmp.reset_index()
