@@ -16,8 +16,7 @@ import salem
 import geopandas
 import random
 
-
-sys.path.append("../L0")
+sys.path.append("/glade/u/home/horowitz/extreme_heat_CCA/py/L0")
 import L0_functions as L0
 
 ################################################################################
