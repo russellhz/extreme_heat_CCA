@@ -1,22 +1,30 @@
-*To Do
-- CESMLE
-
 OVERVIEW
+
+Code in py/L0 uses raw CESM data and performs dynamical adjustment.
+
+Code in py/L1 prepares data to be plotted.
+
+Code in py/L2 produces figures.
 
 ---------------------------------------------
 STEP-BY-STEP DIRECTIONS
 1. Running the dynamical adjustment (L0 code)
-a) After cloning repository, add /jobs, /out, and /logs folders to /scriptrunner. 
+	a) After cloning repository, add /jobs, /out, and /logs folders to /scriptrunner. 
 
-b) The first file you will need to run is scriptrunner/L0_scriptrunner_tas_slp_anom_MJJAS_creator.py. This will run py/L0/tas_slp_anom_MJJAS_creator.py for each region and save tas and slp anomalies for each region for May, June, July, August and September. These are currently set up to save to a scratch folder.
+	b) The first file you will need to run is L0_scriptrunner_tas_slp_anom_MJJAS_creator.py. This will run py/L0/tas_slp_z500_anom_AMJJAS_creator.py for each region and save tas, slp, and z500 anomalies for each region for April, May, June, July, August and September. These are currently set up to save to a scratch folder.
 
-c) Next, distance matrices need to be saved for the dynamical adjustment. This can be done by running L0_scriptrunner_distance_matrix.py and L0_scriptrunner_distance_index.py.
+	c) Next, distance matrices need to be saved for the dynamical adjustment. This can be done by running L0_scriptrunner_distance_matrix.py and L0_scriptrunner_distance_index.py.
 
-d) The dynamical adjustment for May, June, July, and August can now be performed by running L0_scriptrunner_dyn_adj.py. It will save both the dynamical predictions and the RMSE.
+	d) The dynamical adjustment for May, June, July, and August can now be performed by running L0_scriptrunner_dyn_adj.py. It will save both the dynamical predictions and the RMSE.
 
-2. Converting the output to a form that can be plotted (L1 code)
-a) Run L1_scriptrunner_gridded_composite_data.py. This creates the composite data and outputs heatwave dates. 
+2. Run other L0 code needed for figures
+	a) L0_scriptrunner_cesmle_anom_JJA_creator.py, L0_scriptrunner_covar_anom_MJJA_creator.py, and L0_scriptrunner_JJA_mean.py all can be run, in no particular order. 
 
-b) Run both L1_scriptrunner_gridded_slp_z500.py and L1_scriptrunner_JJA_variance.py.
+3. Converting the output to a form that can be plotted (L1 code)
+	a) Run L1_scriptrunner_gridded_composite_data.py. This creates the composite data and outputs heatwave dates. 
 
-3. 
+	b) Run both L1_scriptrunner_gridded_slp_z500.py to create the average heatwave slp and z500 patterns.
+
+	c) Run L1_scriptrunner_JJA_variance.py, L1_scriptrunner_dayofyear_sd.py, and L1_scriptrunner_cesmle_slp_correlation.py.
+
+4. Produces figures with L2_scriptrunner_figures.py
