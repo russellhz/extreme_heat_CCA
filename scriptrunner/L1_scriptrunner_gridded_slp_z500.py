@@ -11,6 +11,7 @@ with open(job_file, "w") as fh:
     fh.writelines("#PBS -N gridded_slp_z500\n")
     fh.writelines("#PBS -A P04010022\n")
     fh.writelines("#PBS -l walltime=01:00:00\n")
+    fh.writelines("#PBS -l select=1\n")
     fh.writelines("#PBS -o out/gridded_slp_z500.out\n")
     fh.writelines("module load ncarenv\n")
     fh.writelines("module load python\n")

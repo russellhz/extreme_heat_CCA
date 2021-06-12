@@ -22,6 +22,6 @@ for LOC in LOCS:
         fh.writelines("python ../py/L0/tas_slp_z500_anom_AMJJAS_creator.py " + LOC + " > logs/anom_AMJJAS_creator_" + LOC+ ".log\n")
         fh.writelines("deactivate\n")
         
-    os.system("sbatch %s" %job_file)
+    os.system("qsub %s" %job_file)
 
 
