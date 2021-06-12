@@ -42,8 +42,8 @@ for LOC in LOCS:
         # All days in heatwaves
         heat_week_dates = list()
         for date in heatwave_dates:
-            dates_begin = xr.cftime_range(end=date, periods=4, freq="D", calendar="noleap").to_list()[:-1]
-            dates_end = xr.cftime_range(start=date, periods= 4, freq="D", calendar="noleap").to_list()
+            dates_begin = xr.cftime_range(end=date, periods=11, freq="D", calendar="noleap").to_list()[:-1]
+            dates_end = xr.cftime_range(start=date, periods= 11, freq="D", calendar="noleap").to_list()
             heat_week_dates = heat_week_dates + dates_begin + dates_end
         print("heatweek dates calculated")
         ############################################################
