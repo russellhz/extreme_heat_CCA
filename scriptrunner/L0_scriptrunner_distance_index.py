@@ -19,6 +19,6 @@ with open(job_file, "w") as fh:
     fh.writelines("python ../py/L0/distance_index.py "  + " > logs/distance_index.log\n")
     fh.writelines("deactivate\n")
     
-os.system("sbatch %s" %job_file)
+os.system("qsub %s" %job_file)
 
 

@@ -28,6 +28,6 @@ for LOC in LOCS:
             fh.writelines("python ../py/L0/distance_matrix.py "  + args + " > logs/distance_matrix" + args_ +".log\n")
             fh.writelines("deactivate\n")
             
-        os.system("sbatch %s" %job_file)
+        os.system("qsub %s" %job_file)
 
 
