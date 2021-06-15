@@ -9,8 +9,8 @@ LAGS = [1,3]
 for LOC in LOCS:
     for PICTL in PICTLS:
         for LAG in LAGS:
-            args = " ".join([LOC,PICTL, LAG])
-            args_ = "_".join([LOC,PICTL, LAG])
+            args = " ".join([LOC,PICTL, str(LAG)])
+            args_ = "_".join([LOC,PICTL, str(LAG)])
 
             job_file = "jobs/distance_matrix_" + args_ + '.sbatch'
             open(job_file, 'a')
