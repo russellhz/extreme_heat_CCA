@@ -3,9 +3,13 @@
 import os
 
 
-LOCS = ["Northeast", "NorthernRockiesandPlains", "Northwest", "OhioValley", "South", "Southeast", "Southwest", "UpperMidwest", "West"]  
-PICTLS = ["PICTL", "SSTPICTL"]
-N_sets = [[150, 100, 20, 1798]]
+# LOCS = ["Northeast", "NorthernRockiesandPlains", "Northwest", "OhioValley", "South", "Southeast", "Southwest", "UpperMidwest", "West"]  
+# PICTLS = ["PICTL", "SSTPICTL"]
+# N_sets = [[150, 100, 20, 1798, 1], [150, 100, 20, 1798, 3]]
+
+LOCS = ["Northeast"]  
+PICTLS = ["PICTL"]
+N_sets = [[150, 100, 1, 1798, 1]]
 
 for LOC in LOCS:
     for PICTL in PICTLS:
@@ -14,8 +18,9 @@ for LOC in LOCS:
             N_S = str(sets[1])
             N_R = str(sets[2])
             N_Y = str(sets[3])
-            args = " ".join([LOC, PICTL, N, N_S, N_R, N_Y])
-            args_ = "_".join([LOC, PICTL, N, N_S, N_R, N_Y])
+            LAG = str(sets[4])
+            args = " ".join([LOC, PICTL, N, N_S, N_R, N_Y, LAG])
+            args_ = "_".join([LOC, PICTL, N, N_S, N_R, N_Y, LAG])
             job_file = "jobs/" + args_ + '.sbatch'
             open(job_file, 'a')
 
