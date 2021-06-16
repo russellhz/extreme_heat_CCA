@@ -90,7 +90,7 @@ for i in range(123):
         keep_idk = list(set(range(0,scores.shape[1])) - set(remove_idx))
         keep_idk.sort()
         scores_fixed[j,:] = scores[j,keep_idk]
-    np.save(ODIR + 'distance_matrix_' + PICTL + '_' + LOC + '_LAG' + LAG + '_' + str(i), scores_fixed)
+    np.save(ODIR + 'distance_matrix_' + PICTL + '_' + LOC + '_LAG' + str(LAG) + '_' + str(i), scores_fixed)
     if i%10==0:
         print("Done with " + str(i))
 print("--------------------------------------------")
