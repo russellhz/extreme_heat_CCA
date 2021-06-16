@@ -20,7 +20,7 @@ for LOC in LOCS:
                 fh.writelines("#PBS -q casper\n")
                 fh.writelines("#PBS -N distance_matrix_LAG\n")
                 fh.writelines("#PBS -A P04010022\n")
-                fh.writelines("#PBS -l select=1\n")
+                fh.writelines("#PBS -l select=1:mem=30GB\n")
                 fh.writelines("#PBS -l walltime=03:00:00\n")
                 fh.writelines("#PBS -o out/distance_matrix.out\n")
                 
