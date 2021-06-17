@@ -36,7 +36,7 @@ for LOC in LOCS:
                 fh.writelines("module load ncarenv\n")
                 fh.writelines("module load python\n")
                 fh.writelines("ncar_pylib my_npl_clone_casper\n")
-                fh.writelines("python ../py/L0/dyn_adj.py " + args + " > logs/dyn_adj_" + args_ + ".log\n")
+                fh.writelines("python ../py/L0/dyn_adj_LAG.py " + args + " > logs/dyn_adj_LAG_" + args_ + ".log\n")
                 fh.writelines("deactivate\n")
                 
             os.system("qsub %s" %job_file)
