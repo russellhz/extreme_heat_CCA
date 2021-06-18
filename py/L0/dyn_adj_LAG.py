@@ -186,7 +186,7 @@ lat, lon = tas_pictl.lat, tas_pictl.lon
 # Convert to dataset and write to netcdf
 Tca = xr.DataArray(Tca_OLS.reshape(MJJA_days*1799, nlat, nlon), coords=[time , lat, lon], dims=['time', 'lat', 'lon'], name = 'dynamic')
 Tca = Tca.salem.subset(shape=shapefile).salem.roi(shape=shapefile) * land.mask
-fn_adder = '_'.join([PICTL, LOC, str(N), str(N_S), str(N_R), str(N_Y)], str(LAG))
+fn_adder = '_'.join([PICTL, LOC, str(N), str(N_S), str(N_R), str(N_Y), str(LAG)])
 
 ofn = DYN_ADJ_DIR + 'dyn_adj_' + fn_adder + '.nc'
 Tca.to_netcdf(path = ofn)
@@ -199,7 +199,6 @@ rmse = np.sqrt(((dynamic_JJA - tas_JJA[0:(92*1799),:])**2).mean(axis=0))
 rmse_xr = xr.DataArray(rmse.reshape(nlat, nlon), coords=[ lat, lon], dims=['lat', 'lon'], name = 'rmse')
 
 rmse_xr = rmse_xr.salem.subset(shape=shapefile).salem.roi(shape=shapefile) * land.mask
-fn_adder = '_'.join([PICTL, LOC, str(N), str(N_S), str(N_R), str(N_Y), str(random.randint(0, 1000000))])
 rmse_xr.to_netcdf(RMSE_DIR + 'rmse_' + fn_adder + '.nc')
 
 
