@@ -3,13 +3,13 @@
 import os
 
 
-# LOCS = ["Northeast", "NorthernRockiesandPlains", "Northwest", "OhioValley", "South", "Southeast", "Southwest", "UpperMidwest", "West"]  
-# PICTLS = ["PICTL", "SSTPICTL"]
-# N_sets = [[150, 100, 20, 1798, 1], [150, 100, 20, 1798, 3]]
+LOCS = ["Northeast", "NorthernRockiesandPlains", "Northwest", "OhioValley", "South", "Southeast", "Southwest", "UpperMidwest", "West"]  
+PICTLS = ["PICTL", "SSTPICTL"]
+N_sets = [[150, 100, 20, 1798, 1], [150, 100, 20, 1798, 3]]
 
-LOCS = ["Northeast"]  
-PICTLS = ["PICTL"]
-N_sets = [[150, 100, 1, 1798, 1]]
+# LOCS = ["Northeast"]  
+# PICTLS = ["PICTL"]
+# N_sets = [[150, 100, 1, 1798, 1]]
 
 for LOC in LOCS:
     for PICTL in PICTLS:
