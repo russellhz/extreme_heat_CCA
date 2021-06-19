@@ -125,8 +125,8 @@ print("AMJJAS reshaped")
 
 similarity = {}
 for i in range(MJJA_days):
-    similarity[i] = np.load(DIR + 'distance_matrices/distance_matrix_' + PICTL + '_' +  LOC + '_' + str(i) + '.npy')
-
+    similarity[i] = np.load(DIR + 'distance_matrices/distance_matrix_' + PICTL + '_' +  LOC + '_LAG' + str(LAG) + '_' + str(i) + '.npy')
+    
 print("similarity matrices loaded")
 
 ###################### LOAD DISTANCE INDEX MATRIX ###############################
@@ -195,10 +195,10 @@ Tca.to_netcdf(path = ofn)
 dynamic_JJA = Tca.sel(time = Tca.time.dt.month.isin([6,7,8]))
 tas_JJA = tas_pictl.anom.sel(time = tas_pictl.time.dt.month.isin([6,7,8]))
 rmse = np.sqrt(((dynamic_JJA - tas_JJA[0:(92*1799),:])**2).mean(axis=0))
+rmse = rmse.salem.subset(shape=shapefile).salem.roi(shape=shapefile) * land.mask.drop('time')
 
-rmse_xr = xr.DataArray(rmse.reshape(nlat, nlon), coords=[ lat, lon], dims=['lat', 'lon'], name = 'rmse')
+rmse_xr = rmse.to_dataset(name='rmse')
 
-rmse_xr = rmse_xr.salem.subset(shape=shapefile).salem.roi(shape=shapefile) * land.mask
 rmse_xr.to_netcdf(RMSE_DIR + 'rmse_' + fn_adder + '.nc')
 
 
