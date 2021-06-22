@@ -22,7 +22,6 @@ LAGS = [1]
 
 #################### DIRECTORIES ###########################
 os.chdir("/glade/u/home/horowitz/extreme_heat_CCA/py/L1")
-DYNADJ_DIR = "/glade/work/horowitz/extreme_heat_CCA/L1/dyn_adj_" + str(LAG) + "/" 
 SHAPE_DIR = "/glade/u/home/horowitz/extreme_heat_CCA/data/shape_files/"
 AMJJAS_DIR =  "/glade/scratch/horowitz/extreme_heat_CCA/AMJJAS_anom/"
 MJJA_DIR = "/glade/scratch/horowitz/extreme_heat_CCA/MJJA_anom/"
@@ -34,6 +33,7 @@ import L1_functions as L1
 for LOC in LOCS:
     for PICTL_TYPE in PICTL_TYPES:
         for LAG in LAGS:
+            DYNADJ_DIR = "/glade/work/horowitz/extreme_heat_CCA/L1/dyn_adj_" + str(LAG) + "/" 
             ############################################################
             # Load in heatwave dates
             ############################################################
