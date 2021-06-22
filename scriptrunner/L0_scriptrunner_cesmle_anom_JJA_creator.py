@@ -23,18 +23,20 @@ for code in ensemble_codes:
 
     with open(job_file, "w") as fh:
         fh.writelines("#!/bin/bash -l\n")
-        fh.writelines("#SBATCH --job-name=cesmle_anom\n")
-        fh.writelines("#SBATCH --account=P04010022\n")
-        fh.writelines("#SBATCH --ntasks=1\n")
-        fh.writelines("#SBATCH --time=01:00:00\n")
-        fh.writelines("#SBATCH --partition=dav\n")
-        fh.writelines("#SBATCH --output=out/cesmle_anom.out.%j\n")
+        fh.writelines("#PBS -q casper\n")
+        fh.writelines("#PBS -N cesmle_anom\n")
+        fh.writelines("#PBS -A P04010022\n")
+        fh.writelines("#PBS -l select=1\n")
+        fh.writelines("#PBS -l walltime=01:00:00\n")
+        fh.writelines("#PBS -o out/cesmle_anom.out\n")
+        fh.writelines("#PBS -e out/cesmle_anom_e.out\n")
+
         fh.writelines("module load ncarenv\n")
         fh.writelines("module load python\n")
         fh.writelines("ncar_pylib my_npl_clone_casper\n")
         fh.writelines("python ../py/L0/cesmle_anom_JJA_creator.py " + code + " > logs/cesmle_anom_JJA_creator_" + code + ".log\n")
         fh.writelines("deactivate\n")
         
-    os.system("sbatch %s" %job_file)
+    os.system("qsub %s" %job_file)
 
 
