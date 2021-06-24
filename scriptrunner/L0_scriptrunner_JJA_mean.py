@@ -4,7 +4,7 @@ import os
 
 
 PICTL_TYPES = ["PICTL", "SSTPICTL"]
-VARS = ['soilwater_10cm']
+VARS = ['soilwater_10cm', 'psl']
 
 for VAR in VARS:
     for PICTL_TYPE in PICTL_TYPES:
