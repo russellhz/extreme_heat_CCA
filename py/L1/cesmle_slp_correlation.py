@@ -46,8 +46,18 @@ for LOC in LOCS:
     # Open data        
     data = xr.open_dataset(fn)
     
-    # Filter to heatwave years and take mean
+    # Filter to heatwave years
     data = data.sel(time=data.time.dt.year.isin(years))
+    
+    # Filter to week of dates
+    all_dates = data.time.values
+    all_dates_df = pd.DataFrame({"date":all_dates})
+    all_dates_df['year'] = [all_dates_df.date[x].year for x in range(len(all_dates_df))]
+    week_of_df = all_dates_df.groupby(all_dates_df.year).head(14).groupby(all_dates_df.year).tail(7)
+
+    data = data.sel(time=xr.DataArray(week_of_df.date, dims = "time", name="time"))
+
+    # Take mean
     data = data.mean(dim='time')
     
     slp_data_dict[LOC] = data.slp 
