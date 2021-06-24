@@ -20,7 +20,7 @@ with open(job_file, "w") as fh:
     fh.writelines("module load ncarenv\n")
     fh.writelines("module load python\n")
     fh.writelines("ncar_pylib my_npl_clone_casper\n")
-    fh.writelines("python ../py/L1/cesmle_slp_correlation.py "  + " > logs/cesmle_slp_correlation"  + ".log\n")
+    fh.writelines("python ../py/L1/cesmle_slp_correlation_LAG.py "  + " > logs/cesmle_slp_correlation"  + ".log\n")
     fh.writelines("deactivate\n")
     
 os.system("qsub %s" %job_file)
