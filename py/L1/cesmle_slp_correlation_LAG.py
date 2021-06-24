@@ -31,6 +31,7 @@ CESMLE_DIR = "/glade/scratch/horowitz/extreme_heat_CCA/JJA_anom/"
 LOCS = ["Northeast", "NorthernRockiesandPlains", "Northwest", "OhioValley", "South", 
         "Southeast", "Southwest", "UpperMidwest", "West"]  
 PICTL_TYPE = "PICTL"
+LAG = 1
 
 ##############################################################################
 ################          Average SLP heatwave pattern        ################
